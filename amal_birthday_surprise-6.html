@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Rose Bouquet</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  background:
+    radial-gradient(circle at 50% 48%,rgba(255,255,255,.9),transparent 38%),
+    linear-gradient(180deg,#fffdf1 0%,#fff4f7 45%,#fde9ef 100%);
+  color:#9a4c60;
+}
+.page{
+  position:relative;width:100%;height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:9vh;
+}
+h1{
+  margin:0;font-size:clamp(24px,5vw,42px);
+  font-weight:500;font-style:italic;
+  color:#9d5262;letter-spacing:.3px;
+}
+h1 span{font-style:normal;font-size:.75em}
+.bouquet{
+  position:absolute;left:50%;top:51%;
+  transform:translate(-50%,-50%);
+  font-size:clamp(100px,25vw,190px);
+  filter:drop-shadow(0 12px 10px rgba(120,50,50,.15));
+  cursor:pointer;
+  transition:transform .5s ease;
+}
+.bouquet:hover{transform:translate(-50%,-50%) scale(1.06)}
+.message{
+  position:absolute;left:50%;bottom:12%;
+  transform:translateX(-50%);
+  text-align:center;width:90%;max-width:520px;
+  color:#a85c70;font-size:clamp(18px,4vw,28px);
+  line-height:1.5;
+  opacity:0;transition:opacity .7s;
+}
+.message.show{opacity:1}
+.corner{
+  position:absolute;bottom:4%;
+  font-size:clamp(50px,13vw,90px);
+  opacity:.48;
+}
+.corner.left{left:4%}.corner.right{right:4%;transform:scaleX(-1)}
+button{
+  position:absolute;top:20%;left:5%;
+  border:1px solid #e7dfe1;border-radius:20px;
+  padding:8px 16px;background:#fff;color:#9a6873;
+  font:14px Georgia,serif;box-shadow:0 2px 8px #caaab055;
+}
+#start{
+  position:absolute;inset:0;background:rgba(255,247,249,.97);
+  z-index:5;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+}
+#start h2{font-weight:500;font-style:italic;font-size:30px;color:#a04f64}
+#start p{color:#aa7885}
+#start button{
+  position:static;background:#fff;border:1px solid #ead9df;
+  font-size:15px;cursor:pointer;
+}
+.hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.heart{position:absolute;top:-30px;font-size:20px;animation:fall 4s linear forwards}
+@keyframes fall{to{top:110%;transform:rotate(360deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<div id="start">
+  <h2>A little surprise for Amal ❤️</h2>
+  <p>Tap to open your bouquet</p>
+  <button onclick="openBouquet()">Open</button>
+</div>
+
+<div class="page">
+  <h1>Your Rose Bouquet <span>🌹</span></h1>
+
+  <button onclick="forever()">For my bestest friend ♡</button>
+
+  <div class="bouquet" onclick="forever()">💐</div>
+
+  <div class="corner left">🌸🌳</div>
+  <div class="corner right">🌸🌳</div>
+
+  <div id="message" class="message">
+    <strong>Amal, you are truly special to me. ❤️</strong><br>
+    Happy Birthday to my bestest friend! 🎂<br>
+    May your life always be filled with happiness, love and beautiful memories. ✨
+  </div>
+</div>
+
+<div id="hearts" class="hearts"></div>
+
+<script>
+function openBouquet(){
+  document.getElementById('start').style.display='none';
+  forever();
+}
+function forever(){
+  document.getElementById('message').classList.add('show');
+  const box=document.getElementById('hearts');
+  for(let i=0;i<18;i++){
+    setTimeout(()=>{
+      const x=document.createElement('div');
+      x.className='heart';
+      x.textContent=['❤️','🌸','✨','💗'][Math.floor(Math.random()*4)];
+      x.style.left=Math.random()*100+'%';
+      x.style.animationDuration=(3+Math.random()*2)+'s';
+      box.appendChild(x);
+      setTimeout(()=>x.remove(),5500);
+    },i*100);
+  }
+}
+</script>
+</body>
+</html>
